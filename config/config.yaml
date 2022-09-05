@@ -1,0 +1,16 @@
+application:
+  mode: debug
+  port: 7777
+
+mysql:
+  username: xiaolatiao
+  password: xiaolatiao0402.
+  address: gz-cynosdbmysql-grp-rv4cxsj7.sql.tencentcdb.com
+  port: 27145
+  database: helm
+
+helmRepos:
+  - name: mychartrepo
+    url: http://175.24.198.168:8080
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
