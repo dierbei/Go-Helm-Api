@@ -62,3 +62,15 @@ type UpdateRepositoryResponse struct {
 func NewUpdateRepositoryResponse() *UpdateRepositoryResponse {
 	return &UpdateRepositoryResponse{}
 }
+
+type ListRepositoryResponse struct {
+	Total     int64          `json:"total"`
+	TotalPage int            `json:"total_page"`
+	Page      int            `json:"page"`
+	PageSize  int            `json:"page_size"`
+	Data      RepositoryList `json:"data"`
+}
+
+func NewListRepositoryResponse() *ListRepositoryResponse {
+	return &ListRepositoryResponse{}
+}

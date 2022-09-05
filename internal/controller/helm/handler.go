@@ -1,16 +1,12 @@
 package helmcontroller
 
 import (
-	"github.com/gin-gonic/gin"
 	"githup.com/dierbei/go-helm-api/internal/service/helm"
-	"helm.sh/helm/v3/pkg/cli"
+
+	"github.com/gin-gonic/gin"
 )
 
 var _ Handler = (*handler)(nil)
-
-var (
-	settings = cli.New()
-)
 
 type Handler interface {
 	// UploadChart
@@ -33,9 +29,9 @@ type Handler interface {
 	// 创建 Chart
 	//CreateChart() gin.HandlerFunc
 
-	// ListRepoChart
+	// ListRepositoryChart
 	// 仓库 Chart 列表
-	ListRepoChart() gin.HandlerFunc
+	ListRepositoryChart() gin.HandlerFunc
 
 	// UninstallRelease
 	// 卸载 Chart
@@ -48,6 +44,10 @@ type Handler interface {
 	// UpdateRepository
 	// 更新 Chart 仓库
 	UpdateRepository() gin.HandlerFunc
+
+	// ListRepository
+	// Chart 仓库列表
+	ListRepository() gin.HandlerFunc
 
 	i()
 }
@@ -66,7 +66,7 @@ func New(group *gin.RouterGroup, svc helmservice.Service) {
 	repositoryGroup := group.Group("/repositories")
 	{
 		// helm repo list
-		repositoryGroup.GET("")
+		repositoryGroup.GET("", h.ListRepository())
 
 		// helm repo add
 		repositoryGroup.POST("", h.AddRepository())
@@ -78,7 +78,7 @@ func New(group *gin.RouterGroup, svc helmservice.Service) {
 	chartGroup := group.Group("/charts/repository/:repository")
 	{
 		// helm search repo
-		chartGroup.GET("", h.ListRepoChart())
+		chartGroup.GET("", h.ListRepositoryChart())
 
 		// helm show
 		chartGroup.GET("/chart/:chart")

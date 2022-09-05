@@ -1,10 +1,12 @@
 package helmcontroller
 
 import (
-	"github.com/gin-gonic/gin"
+	"net/http"
+
 	"githup.com/dierbei/go-helm-api/internal/pkg/response"
 	helmrepo "githup.com/dierbei/go-helm-api/internal/repository/helm"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func (h *handler) AddRepository() gin.HandlerFunc {

@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (h *handler) ListRepoChart() gin.HandlerFunc {
+func (h *handler) ListRepositoryChart() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		repo := ctx.Param("repository")
 		version := ctx.Query("version")   // chart version

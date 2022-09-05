@@ -29,6 +29,8 @@ func NewRepository() *Repository {
 	return &Repository{}
 }
 
+type RepositoryList []*Repository
+
 func (Repository) TableName() string {
 	return "repository"
 }

@@ -29,6 +29,8 @@ type Service interface {
 	SelectRepository(search *helmrepo.Repository) (*helmrepo.Repository, error)
 
 	InstallOrUpgradeRelease(namespace, repository, release, chart, version string) (*release.Release, error)
+
+	ListRepository(page, pageSize int) (*helmrepo.ListRepositoryResponse, error)
 }
 
 type service struct {
