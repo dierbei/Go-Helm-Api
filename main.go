@@ -11,8 +11,6 @@ import (
 func main() {
 	c := config.GetConfig().Application
 
-	//helmclient.GetHelmSettings().InitRepos()
-
 	engine := gin.Default()
 	if c.Mode != "debug" {
 		engine = gin.New()

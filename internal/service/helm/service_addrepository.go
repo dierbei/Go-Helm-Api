@@ -5,6 +5,7 @@ import (
 	"githup.com/dierbei/go-helm-api/internal/pkg/mysql"
 	helmrepo "githup.com/dierbei/go-helm-api/internal/repository/helm"
 	"helm.sh/helm/v3/pkg/repo"
+	"log"
 )
 
 func (s *service) AddRepository(req *helmrepo.AddRepositoryRequest) error {
@@ -23,6 +24,18 @@ func (s *service) AddRepository(req *helmrepo.AddRepositoryRequest) error {
 	if result.Error == nil {
 		go func() {
 			settings.UpdateRepo(&repo.Entry{
+				Name:     data.Name,
+				URL:      data.URL,
+				Username: data.Username,
+				Password: data.Password,
+			})
+
+			helmClient, err := helmclient.GetHelmClient(myClusterApiServer, myClusterToken, myClusterCa, "default")
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			helmClient.AddOrUpdateChartRepo(repo.Entry{
 				Name:     data.Name,
 				URL:      data.URL,
 				Username: data.Username,

@@ -6,7 +6,6 @@ import (
 	"github.com/gofrs/flock"
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
-	"githup.com/dierbei/go-helm-api/config"
 	"gopkg.in/yaml.v3"
 	"helm.sh/helm/v3/cmd/helm/search"
 	"helm.sh/helm/v3/pkg/cli"
@@ -42,14 +41,10 @@ func GetHelmSettings() *helmSettings {
 	return settings
 }
 
-func (settings *helmSettings) InitRepos() {
-	_config := config.GetConfig().HelmRepos
-	for _, r := range _config {
-		if err := settings.initRepo(&repo.Entry{
-			Name: r.Name,
-			URL:  r.URL,
-		}); err != nil {
-			log.Fatal(err)
+func (settings *helmSettings) InitRepos(repoEntryList []*repo.Entry) {
+	for _, repoEntry := range repoEntryList {
+		if err := settings.initRepo(repoEntry); err != nil {
+			log.Println(err)
 		}
 	}
 }

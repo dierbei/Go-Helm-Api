@@ -11,7 +11,7 @@ func (s *service) ListRepository(page, pageSize int) (*helmrepo.ListRepositoryRe
 	var (
 		db     = mysql.GetDb()
 		res    = helmrepo.NewListRepositoryResponse()
-		data   = make(helmrepo.RepositoryList, 0, pageSize)
+		data   = make(helmrepo.RepositoryList, 0)
 		limit  = pageSize
 		offset = (page - 1) * pageSize
 		count  int64
@@ -19,7 +19,7 @@ func (s *service) ListRepository(page, pageSize int) (*helmrepo.ListRepositoryRe
 
 	if page == -1 || pageSize == -1 {
 		offset = -1
-		limit = 1
+		limit = -1
 	}
 
 	db = db.Model(data).Count(&count)

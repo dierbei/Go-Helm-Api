@@ -64,11 +64,16 @@ func NewUpdateRepositoryResponse() *UpdateRepositoryResponse {
 }
 
 type ListRepositoryResponse struct {
-	Total     int64          `json:"total"`
-	TotalPage int            `json:"total_page"`
-	Page      int            `json:"page"`
-	PageSize  int            `json:"page_size"`
-	Data      RepositoryList `json:"data"`
+	// 总记录数
+	Total int64 `json:"total"`
+	// 总页数
+	TotalPage int `json:"total_page"`
+	// 页码
+	Page int `json:"page"`
+	// 每页条数
+	PageSize int `json:"page_size"`
+	// 数据
+	Data RepositoryList `json:"data"`
 }
 
 func NewListRepositoryResponse() *ListRepositoryResponse {

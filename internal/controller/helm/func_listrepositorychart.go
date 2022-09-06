@@ -20,13 +20,9 @@ func (h *handler) ListRepositoryChart() gin.HandlerFunc {
 			version = ">0.0.0"
 		}
 
-		chartList, err := h.Svc.ListRepoChart(repo, version, keyword, versions)
+		chartList, err := h.Svc.ListRepositoryChart(repo, version, keyword, versions)
 		if err != nil {
-			response.NewResponse(ctx).Error(
-				http.StatusInternalServerError,
-				1001,
-				err,
-			)
+			response.NewResponse(ctx).Error(http.StatusInternalServerError, 1001, err)
 			return
 		}
 

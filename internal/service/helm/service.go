@@ -20,7 +20,7 @@ var _ Service = (*service)(nil)
 type Service interface {
 	i()
 
-	ListRepoChart(repoName, version, keyword, versions string) (*helmrepo.ListRepoChartResponse, error)
+	ListRepositoryChart(repoName, version, keyword, versions string) (*helmrepo.ListRepoChartResponse, error)
 
 	AddRepository(req *helmrepo.AddRepositoryRequest) error
 
@@ -31,6 +31,10 @@ type Service interface {
 	InstallOrUpgradeRelease(namespace, repository, release, chart, version string) (*release.Release, error)
 
 	ListRepository(page, pageSize int) (*helmrepo.ListRepositoryResponse, error)
+
+	UninstallRelease(namespace, release string) error
+
+	InitRepos() error
 }
 
 type service struct {

@@ -7,7 +7,7 @@ import (
 	"helm.sh/helm/v3/cmd/helm/search"
 )
 
-func (s *service) ListRepoChart(repoName, version, keyword, versions string) (*helmrepo.ListRepoChartResponse, error) {
+func (s *service) ListRepositoryChart(repoName, version, keyword, versions string) (*helmrepo.ListRepoChartResponse, error) {
 	settings := helmclient.GetHelmSettings()
 
 	index, err := settings.BuildSearchIndex(repoName, version)

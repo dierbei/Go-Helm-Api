@@ -49,6 +49,10 @@ type Handler interface {
 	// Chart 仓库列表
 	ListRepository() gin.HandlerFunc
 
+	// UninstallRelease
+	// 卸载 Chart
+	UninstallRelease() gin.HandlerFunc
+
 	i()
 }
 
@@ -96,7 +100,7 @@ func New(group *gin.RouterGroup, svc helmservice.Service) {
 		releaseGroup.POST("", h.InstallOrUpgradeRelease())
 
 		// helm uninstall
-		releaseGroup.DELETE("/repository/:repository/release/:release")
+		releaseGroup.DELETE("/release/:release", h.UninstallRelease())
 
 		// helm get
 		releaseGroup.GET("/release/:release")

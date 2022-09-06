@@ -3,11 +3,14 @@ package helmclient
 import (
 	"encoding/base64"
 	gohelmclient "github.com/mittwald/go-helm-client"
-	"helm.sh/helm/v3/pkg/repo"
 	"k8s.io/client-go/rest"
 )
 
-func GetHelmClient(apiServer, Token, CA, namespace string, entry repo.Entry) (gohelmclient.Client, error) {
+var (
+	_helmClient gohelmclient.Client
+)
+
+func GetHelmClient(apiServer, Token, CA, namespace string) (gohelmclient.Client, error) {
 	decodeToken, err := base64.StdEncoding.DecodeString(Token)
 	if err != nil {
 		return nil, err
@@ -40,10 +43,7 @@ func GetHelmClient(apiServer, Token, CA, namespace string, entry repo.Entry) (go
 	if err != nil {
 		return nil, err
 	}
-
-	if err := _client.AddOrUpdateChartRepo(entry); err != nil {
-		return nil, err
-	}
+	_helmClient = _client
 
 	return _client, nil
 }
