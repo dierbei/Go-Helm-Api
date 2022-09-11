@@ -41,6 +41,10 @@ func GetHelmSettings() *helmSettings {
 	return settings
 }
 
+func (settings *helmSettings) GetSettings() *cli.EnvSettings {
+	return settings.settings
+}
+
 func (settings *helmSettings) InitRepos(repoEntryList []*repo.Entry) {
 	for _, repoEntry := range repoEntryList {
 		if err := settings.initRepo(repoEntry); err != nil {

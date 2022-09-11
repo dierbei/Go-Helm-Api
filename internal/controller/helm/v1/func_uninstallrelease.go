@@ -1,4 +1,4 @@
-package helmcontroller
+package v1
 
 import (
 	"net/http"
@@ -18,7 +18,7 @@ func (h *handler) UninstallRelease() gin.HandlerFunc {
 			return
 		}
 
-		ctx.JSON(http.StatusOK, gin.H{
+		response.NewResponse(ctx).Success(gin.H{
 			"msg": "success",
 		})
 	}

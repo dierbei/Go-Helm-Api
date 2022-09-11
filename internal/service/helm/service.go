@@ -34,7 +34,11 @@ type Service interface {
 
 	UninstallRelease(namespace, release string) error
 
+	GetChartInfo(chart, info, version string) (interface{}, error)
+
 	InitRepos() error
+
+	ShowReleaseInfo(release, namespace, info, output string) (interface{}, error)
 }
 
 type service struct {

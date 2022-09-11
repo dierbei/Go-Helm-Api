@@ -1,4 +1,4 @@
-package helmcontroller
+package v1
 
 import (
 	"bytes"

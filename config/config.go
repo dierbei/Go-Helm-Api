@@ -26,10 +26,9 @@ type config struct {
 		Database string `yaml:"database"`
 	} `yaml:"mysql"`
 
-	HelmRepos []struct {
-		Name string `yaml:"name"`
-		URL  string `yaml:"url"`
-	} `yaml:"helmRepos"`
+	Chartmuseum struct {
+		Address string `yaml:"address"`
+	} `yaml:"chartmuseum"`
 }
 
 func newConfig() *config {
