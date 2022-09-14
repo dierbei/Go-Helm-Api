@@ -78,7 +78,7 @@ type Handler interface {
 }
 
 func New(group *gin.RouterGroup, svc helmservice.Service) {
-	h := v1.NewHandler(svc)
+	var h Handler = v1.NewHandler(svc)
 
 	repositoryGroup := group.Group("/repositories")
 	{
@@ -125,6 +125,6 @@ func New(group *gin.RouterGroup, svc helmservice.Service) {
 		releaseGroup.POST("/rollback", h.RollBack())
 
 		// helm history
-		releaseGroup.POST("/history", h.ListReleaseHistories())
+		releaseGroup.GET("/history", h.ListReleaseHistories())
 	}
 }

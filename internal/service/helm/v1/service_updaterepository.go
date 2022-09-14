@@ -1,4 +1,4 @@
-package helmservice
+package v1
 
 import (
 	"githup.com/dierbei/go-helm-api/internal/pkg/helmclient"
@@ -8,20 +8,31 @@ import (
 	"log"
 )
 
-func (s *service) AddRepository(req *helmrepo.AddRepositoryRequest) error {
+func (s *service) UpdateRepository(req *helmrepo.UpdateRepositoryRequest) (*helmrepo.UpdateRepositoryResponse, error) {
 	var (
 		db       = mysql.GetDb()
 		data     = helmrepo.NewRepository()
 		settings = helmclient.GetHelmSettings()
+		search   = helmrepo.NewRepository()
 	)
 
+	search.ID = req.ID
+	if _, err := s.SelectRepository(search); err != nil {
+		return nil, err
+	}
+
+	data.ID = req.ID
 	data.Name = req.Name
 	data.URL = req.URL
 	data.Username = req.Username
 	data.Password = req.Password
 
-	result := db.Create(data)
-	if result.Error == nil {
+	result := db.Updates(data)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	go func() {
 		go func() {
 			settings.UpdateRepo(&repo.Entry{
 				Name:     data.Name,
@@ -42,6 +53,9 @@ func (s *service) AddRepository(req *helmrepo.AddRepositoryRequest) error {
 				Password: data.Password,
 			})
 		}()
-	}
-	return result.Error
+	}()
+
+	response := helmrepo.NewUpdateRepositoryResponse()
+	response.RowsAffected = result.RowsAffected
+	return response, nil
 }

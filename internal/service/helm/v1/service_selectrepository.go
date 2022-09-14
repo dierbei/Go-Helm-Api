@@ -1,4 +1,4 @@
-package helmservice
+package v1
 
 import (
 	"githup.com/dierbei/go-helm-api/internal/pkg/mysql"
@@ -8,7 +8,6 @@ import (
 func (s *service) SelectRepository(search *helmrepo.Repository) (*helmrepo.Repository, error) {
 	var (
 		db = mysql.GetDb()
-		//data = helmrepo.NewRepository()
 	)
 
 	if err := db.Debug().Limit(1).Find(search).Error; err != nil {

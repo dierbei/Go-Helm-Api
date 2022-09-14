@@ -23,11 +23,10 @@ func (h *handler) ShowReleaseInfo() gin.HandlerFunc {
 
 		info := ctx.Query("info")
 		if info == "" {
-			info = "values"
+			info = "all"
 		}
-		output := ctx.Query("output")
 
-		data, err := h.Svc.ShowReleaseInfo(name, namespace, info, output)
+		data, err := h.Svc.ShowReleaseInfo(name, namespace, info)
 		if err != nil {
 			response.NewResponse(ctx).Error(http.StatusInternalServerError, 1003, err)
 			return

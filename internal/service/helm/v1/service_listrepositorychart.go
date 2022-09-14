@@ -1,4 +1,4 @@
-package helmservice
+package v1
 
 import (
 	helmrepo "githup.com/dierbei/go-helm-api/internal/repository/helm"
